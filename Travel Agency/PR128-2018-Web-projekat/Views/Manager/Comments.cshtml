@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Comments";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Comments for your Arrangements:</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="main-container" style="margin:auto; width:100%; padding-top:5px; padding-bottom:5px;">
+            @{
+                foreach (var item in ViewBag.comments)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-9">
+                            <p>
+                                Username<br />
+                                @item.Tourist.Username
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Arrangement Name<br />
+                                @item.Arrangement.Name
+                            </p>
+                        </div>
+
+                        <div class="col span-4-of-9">
+                            <p>
+                                Comment Text<br />
+                                @item.CommentText
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Grade<br />
+                                @item.Grade
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Approved<br />
+                                @(item.Approved ? "Yes" : "No")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <form action="~/Manager/CommentApproval" method="post" style="margin-top:10px;">
+                                <input type="hidden" name="commentId" value="@item.Id"/>
+                                <button name="action" value="APPROVE" class="custom-button">APPROVE</button>
+                                <button name="action" value="DISAPPROVE" class="custom-button">DISAPPROVE</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>

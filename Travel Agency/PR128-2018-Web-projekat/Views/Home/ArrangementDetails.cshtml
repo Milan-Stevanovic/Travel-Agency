@@ -1,0 +1,205 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    User currentUser = Session["USER"] as User;
+    if (ViewBag.arrangement != null)
+    {
+        ViewBag.Title = ViewBag.arrangement.Name;
+    }
+    else
+    {
+        ViewBag.Title = "Error";
+    }
+}
+
+@if (ViewBag.arrangement == null)
+{
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Wrong arrangement ID</h1>
+    </div>
+}
+else
+{
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">@ViewBag.arrangement.Name</h1>
+    </div>
+
+    <div class="details-container">
+        <div class="details-text-info">
+            <h3>Arrangement Info</h3>
+            <table class="details-table">
+                <tr>
+                    <td>Arrangement type</td>
+                    @switch (ViewBag.arrangement.ArrangementType)
+                    {
+                        case ArrangementType.ALL_INCLUSIVE:
+                            <td>All inclusive</td>
+                            break;
+                        case ArrangementType.BED_AND_BREAKFAST:
+                            <td>Bed and breakfast</td>
+                            break;
+                        case ArrangementType.APARTMENT_RENTAL:
+                            <td>Apartment rental</td>
+                            break;
+                        case ArrangementType.FULL_BOARD:
+                            <td>Full board</td>
+                            break;
+                        case ArrangementType.HALF_BOARD:
+                            <td>Half board</td>
+                            break;
+                    }
+                </tr>
+
+                <tr>
+                    <td>Transportation type</td>
+                    @switch (ViewBag.arrangement.TransportationType)
+                    {
+                        case TransportationType.BUS:
+                            <td>Bus</td>
+                            break;
+                        case TransportationType.BUS_AND_PLANE:
+                            <td>Bus and plane</td>
+                            break;
+                        case TransportationType.INDIVIDUAL:
+                            <td>Individual</td>
+                            break;
+                        case TransportationType.OTHER:
+                            <td>Other</td>
+                            break;
+                        case TransportationType.PLANE:
+                            <td>Plane</td>
+                            break;
+                    }
+                </tr>
+
+                <tr>
+                    <td>Location</td>
+                    <td>@ViewBag.arrangement.Location</td>
+                </tr>
+
+                <tr>
+                    <td>Start date</td>
+                    <td>@ViewBag.arrangement.StartDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+
+
+                <tr>
+                    <td>End date</td>
+                    <td>@ViewBag.arrangement.EndDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+
+                <tr>
+                    <td>Meeting place address</td>
+                    <td>@ViewBag.arrangement.MeetingPlace.Address</td>
+                </tr>
+
+                <tr>
+                    <td>Meeting place longitude</td>
+                    <td>@ViewBag.arrangement.MeetingPlace.Longitude</td>
+                </tr>
+
+                <tr>
+                    <td>Meeting place latitude</td>
+                    <td>@ViewBag.arrangement.MeetingPlace.Latitude</td>
+                </tr>
+
+                <tr>
+                    <td>Maximum number of passengers</td>
+                    <td>@ViewBag.arrangement.MaxNumberOfPassengers</td>
+                </tr>
+
+                <tr>
+                    <td>Description</td>
+                    <td>@ViewBag.arrangement.Description</td>
+                </tr>
+
+                <tr>
+                    <td>Travel program</td>
+                    <td>@ViewBag.arrangement.TravelProgram</td>
+                </tr>
+            </table>
+
+            <h3>Accommodation Info</h3>
+            <form action="~/Home/AccommodationDetails" method="post">
+                <button type="submit" name="id" value="@ViewBag.arrangement.Id" class="custom-button">View all accommodation info</button>
+            </form>
+
+            @{
+                if (currentUser != null && currentUser.Role == Role.TOURIST)
+                {
+                    bool valid = false;
+                    foreach (Reservation reservation in Data.reservations.Values)
+                    {
+                        if (currentUser.Username.Equals(reservation.Tourist.Username) && reservation.Arrangement.Id == ViewBag.arrangement.Id && reservation.Arrangement.EndDate < DateTime.Now && reservation.Status == Status.ACTIVE)
+                        {
+                            valid = true;
+                        }
+                    }
+
+                    if (ViewBag.arrangement.EndDate < DateTime.Now && valid)
+                    {
+                        <h3>Add Comment</h3>
+
+                        <form action="~/Home/Comment" method="post" style="text-align:left; font-size:22px;">
+                            <input type="hidden" name="arrangementId" value="@ViewBag.arrangement.Id" />
+                            Your Comment:
+                            <textarea required name="commentText" style="width:95%; height:70px; background-color: #383c4a; color: #5294e2; resize: none;  font-size:20px;" placeholder="Type your comment here!"></textarea><br />
+                            Your Grade:
+                            <input type="number" name="grade" min="1" max="5" step="1" style="background-color: #383c4a; color: #5294e2;  font-size:20px;" />
+                            <p style="font-size:16px; margin:0; text-align:center;">NOTE: Your comment will be visible if manager approves it!</p>
+                            <input type="submit" value="Comment" class="custom-button" />
+                        </form>
+                    }
+                }
+            }
+
+            @{
+                if (ViewBag.arrangement.EndDate < DateTime.Now)
+                {
+                    <h3>All Comments</h3>
+                    foreach(Comment comment in Data.comments)
+                    {
+                        if(comment.Arrangement.Id == ViewBag.arrangement.Id && comment.Approved)
+                        {
+                            <div style="background-color:#4b5162; border: 2px solid #383c4a; border-radius:5px; width: 95%; color:#5294e2; text-align:left; margin-bottom:10px; padding:5px;" >
+                                <strong><u>@comment.Tourist.Username<br /></u></strong>
+                                @comment.CommentText<br />
+                                [@comment.Tourist.Username graded this arrangement @comment.Grade]
+                            </div>
+                        }
+                    }
+                }
+            }
+
+        </div>
+
+        <div class="details-image-info">
+            <p>
+                <h3>Image:</h3>
+            </p>
+            <img src="@Url.Content("~/Images/Arrangements/")@ViewBag.arrangement.Image" class="details-image" />
+
+            <!-- MAP -->
+            <p>
+                <h3>Meeting place:</h3>
+            </p>
+            <div id="map" class="map">
+                <script>
+                    var map = new ol.Map({
+                        target: 'map',
+                        layers: [
+                            new ol.layer.Tile({
+                                source: new ol.source.OSM()
+                            })
+                        ],
+                        view: new ol.View({
+                            center: ol.proj.fromLonLat([@ViewBag.arrangement.MeetingPlace.Longitude, @ViewBag.arrangement.MeetingPlace.Latitude]),
+                            zoom: 18
+                        })
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+}

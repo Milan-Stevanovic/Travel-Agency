@@ -1,0 +1,157 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Edit Arrangement";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Edit Arrangement</h1>
+    </div>
+
+    <div class="profile-container">
+        <form action="~/Manager/SaveArrangementEdit" method="post" enctype = "multipart/form-data">
+            <input type="hidden" name="id" value="@ViewBag.arrangement.Id"/>
+            <table class="profile-table">
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" name="name" value="@ViewBag.arrangement.Name" class="input-same-size" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Arrangement Type:</td>
+                    <td>
+                        <select name="arrangementType" class="input-same-size">
+                            @foreach (var type in (ArrangementType[])Enum.GetValues(typeof(ArrangementType)))
+                            {
+                                if (type == ViewBag.arrangement.ArrangementType)
+                                {
+                                    <option value="@type" selected>@type.ToString().Replace('_', ' ')</option>
+                                }
+                                else
+                                {
+                                    <option value="@type">@type.ToString().Replace('_', ' ')</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Transportation Type</td>
+                    <td>
+                        <select name="transportationType" class="input-same-size">
+                            @foreach (var type in (TransportationType[])Enum.GetValues(typeof(TransportationType)))
+                            {
+                                if (type == ViewBag.arrangement.TransportationType)
+                                {
+                                    <option value="@type" selected>@type.ToString().Replace('_', ' ')</option>
+                                }
+                                else
+                                {
+                                    <option value="@type">@type.ToString().Replace('_', ' ')</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Location:</td>
+                    <td><input type="text" name="location" value="@ViewBag.arrangement.Location" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Start Date:</td>
+                    <td><input type="date" name="startDate" value="@ViewBag.arrangement.StartDate.ToString("yyyy-MM-dd")" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>End Date:</td>
+                    <td><input type="date" name="endDate" value="@ViewBag.arrangement.EndDate.ToString("yyyy-MM-dd")" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Meeting Address:</td>
+                    <td><input type="text" name="address" value="@ViewBag.arrangement.MeetingPlace.Address" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Meeting Longitude:</td>
+                    <td><input type="number" name="longitude" value="@ViewBag.arrangement.MeetingPlace.Longitude" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Meeting Latitude:</td>
+                    <td><input type="number" name="latitude" value="@ViewBag.arrangement.MeetingPlace.Latitude" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Meeting Time:</td>
+                    <td><input type="text" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="HH:mm" name="time" value="@ViewBag.arrangement.MeetingTime" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Number of passengers:</td>
+                    <td><input type="number" name="numberOfPassengers" value="@ViewBag.arrangement.MaxNumberOfPassengers" min="0" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Description:</td>
+                    <td>
+                        <textarea name="description" rows="5" cols="50" style="resize:none;" class="input-same-size">@ViewBag.arrangement.Description</textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Travel Program:</td>
+                    <td>
+                        <textarea name="travelProgram" rows="5" cols="50" style="resize:none;" class="input-same-size">@ViewBag.arrangement.TravelProgram</textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Change Image:</td>
+                    <td><input type="file" name="image" value="@ViewBag.arrangement.Image" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Available Accommodation:</td>
+                    <td>
+                        <select name="accommodationId" class="input-same-size">
+                            @foreach (var accommodation in Data.accommodations)
+                            {
+                                if (accommodation.Id == ViewBag.arrangement.Accommodation.Id)
+                                {
+                                    <option value="@accommodation.Id" selected>@accommodation.Name</option>
+                                }
+
+                                bool exists = false;
+                                foreach (var placement in Data.placements)
+                                {
+                                    if (placement.AccommodationID == accommodation.Id)
+                                    {
+                                        exists = true;
+                                    }
+                                }
+                                if (!exists)
+                                {
+                                    <option value="@accommodation.Id">@accommodation.Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                @if (ViewBag.error != null)
+                {
+                    <tr>
+                        <td colspan="2" style="text-align:center; font-size: 22px;">@ViewBag.error</td>
+                    </tr>
+                }
+
+            </table>
+            <input type="submit" value="Edit Arrangement" class="custom-button" style="width:97%;"/>
+        </form>
+    </div>

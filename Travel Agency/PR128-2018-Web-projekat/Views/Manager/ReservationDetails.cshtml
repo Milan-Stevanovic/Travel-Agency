@@ -1,0 +1,260 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Reservation Details";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">
+            Reservation Details [@ViewBag.reservation.Arrangement.Name] [@ViewBag.reservation.Id]:<br />
+            <img style="margin:auto; height:250px; width:250px; border-radius: 15px;" src="@Url.Content("~/Images/Arrangements/")@ViewBag.reservation.Arrangement.Image"/>
+        </h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="main-container" style="margin:10px auto; width:70%; padding-top:5px; padding-bottom:5px;">
+            <h2>Reservation</h2>
+            <div class="row main-item-container">
+                <div class="col span-1-of-2">
+                    <p>
+                        Unique ID<br />
+                        @ViewBag.reservation.Id
+                    </p>
+                </div>
+
+                <div class="col span-1-of-2">
+                    <p>
+                        Status<br />
+                        @ViewBag.reservation.Status
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container" style="margin:10px auto; width:70%; padding-top:5px; padding-bottom:5px;">
+            <h2>Tourist</h2>
+            <div class="row main-item-container">
+                <div class="col span-1-of-6">
+                    <p>
+                        Username<br />
+                        @ViewBag.reservation.Tourist.Username
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Name<br />
+                        @ViewBag.reservation.Tourist.Name
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Lastname<br />
+                        @ViewBag.reservation.Tourist.Lastname
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Gender<br />
+                        @ViewBag.reservation.Tourist.Gender
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Email<br />
+                        @ViewBag.reservation.Tourist.Email
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Date of Birth<br />
+                        @ViewBag.reservation.Tourist.DateOfBirth.ToString("dd/MM/yyyy")
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container" style="margin:10px auto; width:70%; padding-top:5px; padding-bottom:5px;">
+            <h2>Arrangement</h2>
+
+            <div class="row main-item-container">
+                <div class="col span-1-of-6">
+                    <p>
+                        Name<br />
+                        @ViewBag.reservation.Arrangement.Name
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Arrangement Type<br />
+                        @ViewBag.reservation.Arrangement.ArrangementType.ToString().Replace('_', ' ')
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Transportation Type<br />
+                        @ViewBag.reservation.Arrangement.TransportationType.ToString().Replace('_', ' ')
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Location<br />
+                        @ViewBag.reservation.Arrangement.Location
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Start Date<br />
+                        @ViewBag.reservation.Arrangement.StartDate.ToString("dd/MM/yyyy")
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        End Date<br />
+                        @ViewBag.reservation.Arrangement.EndDate.ToString("dd/MM/yyyy")
+                    </p>
+                </div>
+            </div>
+            <div class="row main-item-container">
+                <div class="col span-1-of-6">
+                    <p>
+                        Meeting Address<br />
+                        @ViewBag.reservation.Arrangement.MeetingPlace.Address
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Meeting Longitude<br />
+                        @ViewBag.reservation.Arrangement.MeetingPlace.Longitude
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Meeting Latitude<br />
+                        @ViewBag.reservation.Arrangement.MeetingPlace.Latitude
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Meeting Time<br />
+                        @ViewBag.reservation.Arrangement.MeetingTime
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Description<br />
+                        @ViewBag.reservation.Arrangement.Description
+                    </p>
+                </div>
+
+                <div class="col span-1-of-6">
+                    <p>
+                        Travel Program<br />
+                        @ViewBag.reservation.Arrangement.TravelProgram
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container" style="margin:10px auto; width:70%; padding-top:5px; padding-bottom:5px;">
+            <h2>Accommodation</h2>
+            <div class="row main-item-container">
+                <div class="col span-1-of-7">
+                    <p>
+                        Name<br />
+                        @ViewBag.reservation.Arrangement.Accommodation.Name
+                    </p>
+                </div>
+
+                <div class="col span-1-of-7">
+                    <p>
+                        Accommodation Type<br />
+                        @ViewBag.reservation.Arrangement.Accommodation.AccommodationType
+                    </p>
+                </div>
+
+                <div class="col span-1-of-7">
+                    <p>
+                        Hotel Stars<br />
+                        @if(ViewBag.reservation.Arrangement.Accommodation.AccommodationType == AccommodationType.HOTEL)
+                        {
+                            <p>@ViewBag.reservation.Arrangement.Accommodation.HotelStars</p>
+                        }
+                        else
+                        {
+                            <p>-</p>
+                        }
+                    </p>
+                </div>
+
+                <div class="col span-1-of-7">
+                    <p>
+                        Pool<br />
+                        @(ViewBag.reservation.Arrangement.Accommodation.Pool ? "Yes" : "No")
+                    </p>
+                </div>
+
+                <div class="col span-1-of-7">
+                    <p>
+                        Spa Center<br />
+                        @(ViewBag.reservation.Arrangement.Accommodation.SpaCenter ? "Yes" : "No")
+                    </p>
+                </div>
+
+                <div class="col span-1-of-7">
+                    <p>
+                        Disabled People Adapted<br />
+                        @(ViewBag.reservation.Arrangement.Accommodation.DisabledPeopleAdapted ? "Yes" : "No")
+                    </p>
+                </div>
+
+                <div class="col span-1-of-7">
+                    <p>
+                        Wifi<br />
+                        @(ViewBag.reservation.Arrangement.Accommodation.Wifi ? "Yes" : "No")
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container" style="margin:10px auto; width:70%; padding-top:5px; padding-bottom:5px;">
+            <h2>Unit</h2>
+            <div class="row main-item-container">
+                <div class="col span-1-of-3">
+                    <p>
+                        Guests Allowed<br />
+                        @ViewBag.reservation.AccommodationUnit.NumberOfGuestsAllowed
+                    </p>
+                </div>
+
+                <div class="col span-1-of-3">
+                    <p>
+                        Pets Allowed<br />
+                        @(ViewBag.reservation.AccommodationUnit.PetsAllowed ? "Yes" : "No")
+                    </p>
+                </div>
+
+                <div class="col span-1-of-3">
+                    <p>
+                        Price<br />
+                        @ViewBag.reservation.AccommodationUnit.Price RSD
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

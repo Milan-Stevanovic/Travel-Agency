@@ -1,0 +1,228 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Manage Accommodations";
+}
+
+<!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Manage Accommodations:</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- SEARCH CONTAINER -->
+        <form action="~/Manager/SearchAccommodations" method="post">
+            <div class="col span-1-of-5 search-container">
+                <h3>Search</h3>
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Accommodation Type</legend>
+                        <select name="accommodationType" style="width: 100%;">
+                            <option value="HOTEL">Hotel</option>
+                            <option value="MOTEL">Motel</option>
+                            <option value="VILLA">Villa</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Name</legend>
+                        <input type="text" name="name" placeholder="Type name here" style="width: 100%;" />
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Pool</legend>
+                        <select name="pool" style="width: 100%;">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Spa center</legend>
+                        <select name="spaCenter" style="width: 100%;">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Disabled people adapted</legend>
+                        <select name="disabledPeopleAdapted" style="width: 100%;">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Wifi</legend>
+                        <select name="wifi" style="width: 100%;">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <input type="submit" name="action" value="Search" class="custom-button" />
+                    <input type="submit" name="action" value="Clear Search" class="custom-button" />
+                </div>
+            </div>
+        </form>
+
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="col span-3-of-5 main-container">
+            <h3>Accommodations:</h3>
+            @{
+                foreach (var item in ViewBag.list)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-9">
+                            <p>
+                                Type<br />
+                                @item.AccommodationType
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Name<br />
+                                @item.Name
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            @if(item.AccommodationType == AccommodationType.HOTEL)
+                            {
+                                <p>
+                                    Stars<br />
+                                    @item.HotelStars
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    Stars<br />
+                                    -
+                                </p>
+                            }
+                        </div>
+
+                        <div class="col span-1-of-9" style="font-weight:bold;">
+                            <p>
+                                Pool<br />
+                                @(item.Pool ? "Yes" : "No")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9" style="font-weight:bold;">
+                            <p>
+                                Spa Center<br />
+                                @(item.SpaCenter ? "Yes" : "No")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9" style="font-weight:bold;">
+                            <p>
+                                Disabled People<br />Adapted<br />
+                                @(item.DisabledPeopleAdapted ? "Yes" : "No")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9" style="font-weight:bold;">
+                            <p>
+                                WiFi<br />
+                                @(item.Wifi ? "Yes" : "No")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9" style="font-weight:bold;">
+                            <p>
+                                Deleted<br />
+                                @item.Deleted
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            @{
+                                bool exists = false;
+
+                                foreach (var reservation in Data.reservations.Values)
+                                {
+                                    if (reservation.Arrangement.Accommodation.Id == item.Id)
+                                    {
+                                        exists = true;
+                                        break;
+                                    }
+                                }
+                                if (!exists)
+                                {
+                                    <form action="~/Manager/DeleteAccommodation" method="post" style="margin-top:20px;">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="submit" value="DELETE" class="custom-button" />
+                                    </form>
+                                }
+                                else
+                                {
+                                    <p>Reservation exists! Cannot delete!</p>
+                                }
+                            }
+                            <form action="~/Manager/EditAccommodation" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <input type="submit" value="EDIT" class="custom-button" />
+                            </form>
+
+                            <form action="~/Manager/ManageUnits" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <input type="submit" value="UNITS" class="custom-button" />
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- SORT CONTAINER -->
+        <div class="col span-1-of-5 sort-container">
+            <h3>Sort</h3>
+            <form action="~/Manager/SortAccommodations" method="post">
+                @for (int i = 0; i < ViewBag.list.Count; i++)
+                {
+                    <input type="hidden" name="list" value="@ViewBag.list[i].Id" />
+                }
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort by</legend>
+                        <select name="sortBy" style="width: 100%;">
+                            <option value="Name">Name</option>
+                            <option value="UnitsNumber">Number of Units</option>
+                            <option value="AvailableUnits">Available Units</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort order</legend>
+                        <select name="order" style="width: 100%;">
+                            <option value="Ascending">Ascending</option>
+                            <option value="Descending">Descending</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <input type="submit" value="Sort" class="custom-button" />
+                </div>
+            </form>
+        </div>
+    </div>

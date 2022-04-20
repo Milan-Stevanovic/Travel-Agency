@@ -1,0 +1,37 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Add Unit";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Add New Unit</h1>
+    </div>
+
+    <div class="profile-container">
+        <form action="~/Manager/AddNewUnit" method="post" >
+            <table class="profile-table">
+                <input type="hidden" name="accommodationId" value="@ViewBag.accommodationId" />
+                <tr>
+                    <td>Number of guests allowed:</td>
+                    <td><input type="number" name="numberOfGuests" min="1" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Pets Allowed:</td>
+                    <td>
+                        <select name="petsAllowed" class="input-same-size">
+                            <option value="True">Yes</option>
+                            <option value="False" selected>No</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Price:</td>
+                    <td><input type="number" name="price" min="1" class="input-same-size" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="Add Unit" class="custom-button" style="width:97%;"/>
+        </form>
+    </div>

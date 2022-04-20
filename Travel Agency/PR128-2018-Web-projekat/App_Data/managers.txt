@@ -1,0 +1,3 @@
+manager;manager;Manager;Manageric;Male;maganer@manager.com;31/12/1999;False
+branka;branka;Branka;Brankovic;Female;branka@gmail.com;03/03/1999;False
+novak;novak;Novak;Novakovic;Male;novak@gmail.com;04/04/1999;False

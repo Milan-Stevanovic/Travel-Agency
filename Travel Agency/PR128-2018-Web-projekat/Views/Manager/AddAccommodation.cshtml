@@ -1,0 +1,100 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Add Accommodation";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Add New Accommodation</h1>
+    </div>
+
+    <div class="profile-container">
+        <form action="~/Manager/AddAccommodation" method="post">
+            @{
+                int id = Data.accommodations.Count + 1;
+                <input type="hidden" name="id" value="@id" />
+            }
+            <table class="profile-table">
+                <tr>
+                    <td>Type:</td>
+                    <td>
+                        <script>
+                            function enableStars(value) {
+                                if (value === "HOTEL")
+                                    document.getElementById("hotelStars").disabled = false;
+                                else {
+                                    document.getElementById("hotelStars").value = 0;
+                                    document.getElementById("hotelStars").disabled = true;
+                                }
+                            }
+                        </script>
+                        <select name="accommodationType" class="input-same-size" onChange="enableStars(this.value)">
+                            @foreach (var type in (AccommodationType[])Enum.GetValues(typeof(AccommodationType)))
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Hotel Stars:</td>
+                    <td><input type="number" name="hotelStars" id="hotelStars" min="0" max="5" class="input-same-size" /></td>
+                </tr>
+
+                <tr>
+                    <td>Pool:</td>
+                    <td>
+                        <select name="pool" class="input-same-size">
+                                <option value="True">Yes</option>
+                                <option value="False">No</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Spa Center:</td>
+                    <td>
+                        <select name="spaCenter" class="input-same-size">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Disabled People Adapted:</td>
+                    <td>
+                        <select name="disabledPeopleAdapted" class="input-same-size">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Wifi:</td>
+                    <td>
+                        <select name="wifi" class="input-same-size">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </td>
+                </tr>
+
+                @if(ViewBag.error != null)
+                {
+                    <tr>
+                        <td colspan="2" style="text-align:center; font-size: 22px;">@ViewBag.error</td>
+                    </tr>
+                }
+
+            </table>
+            <input type="submit" value="Add Accommodation" class="custom-button" style="width:97%;" />
+        </form>
+    </div>

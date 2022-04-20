@@ -1,0 +1,50 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{ 
+    User currentUser = Session["USER"] as User;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/css/grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/OpenLayersLib/ol.css" rel="stylesheet" type="text/css" />
+    <script src="~/OpenLayersLib/ol.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div id="navbar-container">
+        <a href="~/Home/Index"><img class="navbar-item navbar-logo" src="~/Images/logo-white.png" /></a>
+        <a href="~/Home/Index"><div class="navbar-item">Home</div></a>
+        <a href="~/Home/PastArrangements"><div class="navbar-item">Past arrangements</div></a>
+        <a href="~/Account/Login"><div class="navbar-item">LogIn</div></a>
+        <a href="~/Account/Register"><div class="navbar-item">Register</div></a>
+        @{
+            if (currentUser != null)
+            {
+                <a href="~/Account/LogOut"><div class="navbar-item" style="float:right;">LogOut</div></a>
+                <div class="navbar-item" style="float:right; font-weight: bold;">@currentUser.Username [@currentUser.Name @currentUser.Lastname]</div>
+                <a href="~/Account/ProfilePage"><div class="navbar-item" style="float:right;"><img style="margin: auto; height: 15px;" src="@Url.Content("~/Images/userIcon.png")" /> Edit profile</div></a>
+                if (currentUser.Role == Role.ADMIN)
+                {
+                    <a href="~/Admin/Index"><div class="navbar-item" style="float:right;"><img style="margin: auto; height: 15px;" src="@Url.Content("~/Images/settings.png")"/> Admin Settings</div></a>
+                }
+                if (currentUser.Role == Role.MANAGER)
+                {
+                    <a href="~/Manager/Index"><div class="navbar-item" style="float:right;"><img style="margin: auto; height: 15px;" src="@Url.Content("~/Images/settings.png")" /> Manager Settings</div></a>
+                }
+                if (currentUser.Role == Role.TOURIST)
+                {
+                    <a href="~/Reservation/Index"><div class="navbar-item" style="float:right;">Reservations</div></a>
+                }
+            }
+        }
+    </div>
+
+    <!-- MAIN CONTENT -->
+    @RenderBody()
+</body>
+</html>

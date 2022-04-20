@@ -1,0 +1,16 @@
+1;Bulevar Jase Tomica 4, Novi Sad 21000;19.830444;45.265358
+2;Bulevar Jase Tomica 4, Novi Sad 21000;19.830444;45.265358
+3;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+4;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+5;Bulevar 12. Februara, Nis 18000;21.8898779;43.3239854
+6;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+7;Bulevar Jase Tomica 4, Novi Sad 21000;19.830444;45.265358
+8;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+9;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+10;Bulevar 12. Februara, Nis 18000;21.8898779;43.3239854
+11;Bulevar Jase Tomica 4, Novi Sad 21000;19.830444;45.265358
+12;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+13;Bulevar 12. Februara, Nis 18000;21.8898779;43.3239854
+14;Aerodrom Beograd 59, Beograd 11000;20.2931408;44.8202985
+15;Bulevar 12. Februara, Nis 18000;21.8898779;43.3239854
+16;Bulevar Jase Tomica 4, Novi Sad 21000;19.830444;45.265358

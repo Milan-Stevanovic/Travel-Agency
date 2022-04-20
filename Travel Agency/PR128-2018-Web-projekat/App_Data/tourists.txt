@@ -1,0 +1,5 @@
+milan;milan;Milan;Stevanovic;Male;milanste999@gmail.com;21/12/1999;False;0
+petar;petar;Petar;Petrovic;Male;petar@gmail.com;01/01/1999;False;2
+marko;marko;Marko;Markovic;Male;marko@gmail.com;02/02/1999;False;0
+jovana;jovana;Jovana;Jovanovic;Female;jovana@gmail.com;03/03/1999;False;3
+danijela;danijela;Danijela;Stevanovic;Female;danijela@gmail.com;04/09/1993;False;0

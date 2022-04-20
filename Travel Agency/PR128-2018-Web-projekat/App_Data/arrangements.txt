@@ -1,0 +1,16 @@
+1;Putovanje na Zlatibor;ALL_INCLUSIVE;BUS;Zlatibor, Srbija;01/05/2021;08/05/2021;07:00;40;Idemo na Zlatibor, bice jako lepo;Prvi dan- put, ostatak uzivanje;zlatibor.jpg;manager;False
+2;Skijanje na Kopaoniku;FULL_BOARD;BUS;Kopaonik, Srbija;09/12/2020;20/12/2020;04:30;35;Skijanje na Kopaoniku, bice super!;Prvi dan put, a onda skijanje;kopaonik.jpg;branka;False
+3;Letovanje na Zakintosu;HALF_BOARD;PLANE;Zakintos, Grcka;06/05/2021;20/05/2021;05:30;20;Kupanje i ronjenje!;Prvi dan put, a onda uzivanje;zakintos.jpg;manager;False
+4;Budva Leto 2020;APARTMENT_RENTAL;BUS_AND_PLANE;Budva, Crna Gora;13/07/2020;20/07/2020;06:30;45;Idemo u Budvu!;Prvi dan put, a onda kupanje u Budvi;budva.jpg;branka;False
+5;Hurgada Leto 2021;HALF_BOARD;OTHER;Hurgada, Egipat;20/05/2021;28/05/2021;07:30;55;Prelepa Hurgada!;Putujemo avionom, a onda uzivamo!;hurgada.jpg;manager;False
+6;Hawaii 2020;ALL_INCLUSIVE;PLANE;Hawaii, SAD;01/05/2020;21/05/2020;08:45;30;Hawaii => bice jako lepo;Putujemo avionom i busom, a onda uzivamo!;hawaii.jpg;branka;False
+7;Izlet Djavolja Varos;BED_AND_BREAKFAST;INDIVIDUAL;Djavolja Varos, Srbija;24/04/2021;25/05/2021;08:15;25;Cudo prirode!;Idemo da vidimo Djavolju Varos;djavoljaVaros.jpg;manager;False
+8;Istanbul 2020;FULL_BOARD;BUS_AND_PLANE;Istanbul, Turska;15/08/2020;21/08/2020;07:35;28;Prelepi Istanbul;Put pa uzivanje;istanbul.jpg;novak;False
+9;Hurgada 2022;APARTMENT_RENTAL;PLANE;Hurgada, Egipat;10/07/2022;17/07/2022;09:00;32;Prelepa Hurgada;Idemo avionom a posle se kupamo;hurgada2022.jpg;manager;False
+10;Leto za mlade Evia 2022;HALF_BOARD;INDIVIDUAL;Evia, Grcka;02/07/2022;09/07/2022;07:45;45;Zurke, alkohol i kupanje!;Putujemo a onda zurke!;evia.jpg;novak;False
+11;Francuska 2022;FULL_BOARD;BUS;Pariz, Francuska;14/05/2022;17/05/2022;21:45;35;Grad ljubavi!;Putujemo a onda uzivanje u Parizu;pariz.jpg;manager;False
+12;Poseta Rusiji;ALL_INCLUSIVE;BUS_AND_PLANE;Moskva. Rusija;11/09/2021;16/09/2021;06:30;30;Prelepa Moskva;Prvi dan putujemo a onda uzivamo!;moskva.jpg;manager;False
+13;Jahorina Zima 2022;BED_AND_BREAKFAST;OTHER;Jahorina, Bosna i Hercegovina;12/12/2022;13/12/2022;04:45;15;Idemo malo na sneg;Idemo da se grudvamo i skijamo;jahorina.jpg;manager;False
+14;Spanija 2022;FULL_BOARD;PLANE;Madrid, Spanija;15/05/2022;21/05/2022;09:00;25;Idemo da vidimo prelepi Madrid;Put i uzivanje;madrid.jpg;novak;False
+15;Izlet Krupajsko vrelo;BED_AND_BREAKFAST;INDIVIDUAL;Krupajsko vrelo, Srbija;20/05/2022;21/05/2022;08:15;30;Idemo da vidimo vrelo!;Put i uzivanje;vrelo.jpg;branka;False
+16;Vrnjacka Banja;APARTMENT_RENTAL;OTHER;Vrnjacka Banja, Srbija;02/04/2022;08/04/2022;10:30;20;Idemo da se odmorimo u Vrnjacku Banju!;Odmaranje!;banja.jpg;manager;False

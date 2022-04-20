@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Your Reservations";
+}
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Reservations for your Arrangements:</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="main-container" style="margin:auto; width:100%; padding-top:5px; padding-bottom:5px;">
+            @{
+                foreach (var item in ViewBag.list)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-5">
+                            <p>
+                                Unique Reservation ID<br />
+                                @item.Id
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-5">
+                            <p>
+                                Arrangement Name<br />
+                                @item.Arrangement.Name
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-5">
+                            <p>
+                                Tourist<br />
+                                @item.Tourist.Username
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-5">
+                            <p>
+                                Status<br />
+                                @item.Status
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-5">
+                            <form action="~/Manager/ReservationDetails" method="post" style="margin-top:10px;">
+                                <input type="hidden" name="id" value="@item.Id"/>
+                                <input type="submit" value="VIEW MORE" class="custom-button"/>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>

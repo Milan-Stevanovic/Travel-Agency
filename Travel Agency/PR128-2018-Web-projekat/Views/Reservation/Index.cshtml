@@ -1,0 +1,194 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Index";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Your reservations:</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- SEARCH CONTAINER -->
+        <form action="~/Reservation/Search" method="post">
+            <div class="col span-1-of-6 search-container">
+                <h3>Search</h3>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Unique ID</legend>
+                        <input type="text" name="id" style="width: 100%;" />
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Start date</legend>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>From: </td>
+                                <td><input type="date" name="startDateFrom" style="width: 100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>To: </td>
+                                <td><input type="date" name="startDateTo" style="width: 100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>End date</legend>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>From: </td>
+                                <td><input type="date" name="endDateFrom" style="width: 100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>To: </td>
+                                <td><input type="date" name="endDateTo" style="width: 100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Status</legend>
+                        <select name="status" style="width: 100%;">
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="CANCELED">CANCELED</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+
+
+                <div class="search-box-item">
+                    <input type="submit" name="action" value="Search" class="custom-button" />
+                    <input type="submit" name="action" value="Clear Search" class="custom-button" />
+                </div>
+            </div>
+        </form>
+
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="col span-4-of-6 main-container">
+            @{
+                foreach (var item in ViewBag.list)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-8">
+                            <p>
+                                Unique ID<br />
+                                @item.Id
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-8">
+                            <p>
+                                Status<br />
+                                @item.Status
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-8">
+                            <p>
+                                Arrangement Name<br />
+                                @item.Arrangement.Name
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-8">
+                            <p>
+                                Start Date<br />
+                                @item.Arrangement.StartDate.ToString("dd/MM/yyyy")
+                            </p>
+                        </div>
+
+
+                        <div class="col span-1-of-8">
+                            <p>
+                                End Date<br />
+                                @item.Arrangement.EndDate.ToString("dd/MM/yyyy")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-8">
+                            <p>
+                                Status<br />
+                                @item.Status
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-8">
+                            <p>
+                                Accommodation Unit ID<br />
+                                @item.AccommodationUnit.UnitID
+                            </p>
+                        </div>
+                        @if(item.Status == Status.ACTIVE && item.Arrangement.StartDate < DateTime.Now)
+                        {
+                            <div class="col span-1-of-8" style="float:right;">
+                                <p>
+                                    <strong>Already Passed</strong>
+                                </p>
+                            </div>
+                        }
+                        @if(item.Status == Status.CANCELED && item.Arrangement.StartDate > DateTime.Now)
+                        {
+                            <div class="col span-1-of-8" style="float:right;">
+                                <p>
+                                    <strong>Canceled</strong>
+                                </p>
+                            </div>
+                        }
+                        @if(item.Status == Status.ACTIVE && item.Arrangement.StartDate > DateTime.Now)
+                        {
+                            <div class="col span-1-of-8" style="float:right;">
+                                <form action="~/Reservation/CancelReservation" method="post">
+                                    <button type="submit" name="id" value="@item.Id" class="custom-button" style="margin-top:20px;">CANCEL RESERVATION</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- SORT CONTAINER -->
+        <div class="col span-1-of-6 sort-container">
+            <h3>Sort</h3>
+            <form action="~/Reservation/Sort" method="post">
+                @for (int i = 0; i < ViewBag.list.Count; i++)
+                {
+                    <input type="hidden" name="list" value="@ViewBag.list[i].Id" />
+                }
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort by</legend>
+                        <select name="sortBy" style="width: 100%;">
+                            <option value="Name">Arrangement Name</option>
+                            <option value="Date">Start Date</option>
+                            <option value="Status">Status</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort order</legend>
+                        <select name="order" style="width: 100%;">
+                            <option value="Ascending">Ascending</option>
+                            <option value="Descending">Descending</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <input type="submit" value="Sort" class="custom-button" />
+                </div>
+            </form>
+        </div>
+    </div>

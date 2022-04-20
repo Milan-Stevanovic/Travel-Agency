@@ -1,0 +1,78 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Register";
+    User currentUser = Session["USER"] as User;
+}
+@if (currentUser != null)
+{
+    <div class="section">
+        <h1 id="header">You are already registered!</h1>
+    </div>
+}
+else
+{
+    <div class="section">
+        <h1 id="header">Register</h1>
+    </div>
+
+    <div class="register-container">
+        <form action="~/Account/Register" method="post">
+            <table>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>Lastname</td>
+                    <td><input type="text" name="lastname"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <select style="width:100%;" name="gender">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td>Date of birth</td>
+                    <td><input style="width:97%;" type="date" name="dateOfBirth"></td>
+                </tr>
+                @if (ViewBag.emptyError != null)
+                {
+                    <tr>
+                        <td colspan="2" class="error_message">@ViewBag.emptyError</td>
+                    </tr>
+                }
+                @if (ViewBag.usernameExistsError != null)
+                {
+                    <tr>
+                        <td colspan="2" class="error_message">@ViewBag.usernameExistsError</td>
+                    </tr>
+                }
+                @if (ViewBag.emailError != null)
+                {
+                    <tr>
+                        <td colspan="2" class="error_message">@ViewBag.emailError</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2"><input style="width:100%;" type="submit" value="Register" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+}

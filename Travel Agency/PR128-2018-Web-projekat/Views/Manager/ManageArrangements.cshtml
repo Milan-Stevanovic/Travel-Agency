@@ -1,0 +1,196 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Manage Arrangements";
+    User currentUser = Session["USER"] as User;
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Arrangements created by Manager[@currentUser.Name @currentUser.Lastname]:</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- SEARCH CONTAINER -->
+        <form action="~/Manager/Search" method="post">
+            <div class="col span-1-of-5 search-container">
+                <h3>Search</h3>
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Start date</legend>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>From: </td>
+                                <td><input type="date" name="startDateFrom" style="width: 100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>To: </td>
+                                <td><input type="date" name="startDateTo" style="width: 100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>End date</legend>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>From: </td>
+                                <td><input type="date" name="endDateFrom" style="width: 100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>To: </td>
+                                <td><input type="date" name="endDateTo" style="width: 100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Transportation Type</legend>
+                        <select name="transportationType" style="width: 100%;">
+                            <option value=""></option>
+                            <option value="BUS">Bus</option>
+                            <option value="PLANE">Plane</option>
+                            <option value="BUS_AND_PLANE">Bus And Plane</option>
+                            <option value="INDIVIDUAL">Individual</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Arrangement Type</legend>
+                        <select name="arrangementType" style="width: 100%;">
+                            <option value=""></option>
+                            <option value="BED_AND_BREAKFAST">Bed And Breakfast</option>
+                            <option value="HALF_BOARD">Half Board</option>
+                            <option value="FULL_BOARD">Full Board</option>
+                            <option value="ALL_INCLUSIVE">All Inclusive</option>
+                            <option value="APARTMENT_RENTAL">Apartment Rental</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Name</legend>
+                        <input type="text" name="name" placeholder="Type name here" style="width: 100%;" />
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <input type="submit" name="action" value="Search" class="custom-button" />
+                    <input type="submit" name="action" value="Clear Search" class="custom-button" />
+                </div>
+            </div>
+        </form>
+
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="col span-3-of-5 main-container">
+            <h3>Arrangements</h3>
+            @{
+                foreach (var item in ViewBag.list)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-7">
+                            <p>
+                                Start date<br />
+                                @item.StartDate.ToString("dd/MM/yyyy")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-7">
+                            <p>
+                                End date<br />
+                                @item.EndDate.ToString("dd/MM/yyyy")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-7">
+                            <img src="@Url.Content("~/Images/Arrangements/")@item.Image" class="arrangement-image" />
+                        </div>
+
+                        <div class="col span-1-of-7" style="font-weight:bold;">
+                            <p>
+                                @item.Name
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-7" style="font-weight:bold;">
+                            <p>
+                                Deleted <br />
+                                @item.Deleted
+                            </p>
+                        </div>
+
+
+                        <div class="col span-1-of-7" style="float:right;">
+                            @{
+                                bool reservationExists = false;
+                                foreach (Reservation reservation in Data.reservations.Values)
+                                {
+                                    if (reservation.Arrangement.Id == item.Id && reservation.Status == Status.ACTIVE)
+                                    {
+                                        reservationExists = true;
+                                    }
+                                }
+
+                                if (reservationExists)
+                                {
+                                    <p>Cannot delete!</p>
+                                }
+                                else
+                                {
+                                    <form action="~/Manager/DeleteArrangement" method="post">
+                                        <button type="submit" name="id" value="@item.Id" class="custom-button">DELETE</button>
+                                    </form>
+                                }
+                            }
+                            <form action="~/Manager/EditArrangementPass" method="post">
+                                <button type="submit" name="id" value="@item.Id" class="custom-button">EDIT</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- SORT CONTAINER -->
+        <div class="col span-1-of-5 sort-container">
+            <h3>Sort</h3>
+            <form action="~/Manager/Sort" method="post">
+                @for (int i = 0; i < ViewBag.list.Count; i++)
+                {
+                    <input type="hidden" name="list" value="@ViewBag.list[i].Id" />
+                }
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort by</legend>
+                        <select name="sortBy" style="width: 100%;">
+                            <option value="Name">Name</option>
+                            <option value="StartDate">Start Date</option>
+                            <option value="EndDate">End Date</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort order</legend>
+                        <select name="order" style="width: 100%;">
+                            <option value="Ascending">Ascending</option>
+                            <option value="Descending">Descending</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <input type="submit" value="Sort" class="custom-button" />
+                </div>
+            </form>
+        </div>
+    </div>

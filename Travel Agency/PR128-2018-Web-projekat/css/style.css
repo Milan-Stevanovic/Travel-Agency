@@ -1,0 +1,204 @@
+﻿body {
+    background-color: #383c4a;
+    color: #5294e2;
+    font-family: Calibri;
+}
+
+a, a:active, a:hover{
+    text-decoration: none;
+}
+
+fieldset {
+    border-color: #5294e2;
+}
+
+/* ======== NAVBAR ========= */
+#navbar-container {
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: #404552;
+}
+
+.navbar-item {
+    padding: 5px 10px 5px 10px;
+    float: left;
+    font-size: 22px;
+    color: #5294e2;
+}
+
+.navbar-item:hover {
+    background-color: #4b5162;
+}
+
+.navbar-logo {
+    padding: 5px 10px 5px 10px;
+    width: 25px;
+    height: 25px;
+}
+
+/* =========== HEADER ====================*/
+
+#header {
+    font-size: 52px;
+    text-align: center;
+    padding-top: 10px;
+    text-shadow: 3px 3px 4px BLACK;
+}
+
+
+/* =========== MAIN CONTAINER ==================*/
+
+.search-container {
+    background-color: #404552;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.main-container {
+    background-color: #404552;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.sort-container {
+    background-color: #404552;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.search-box-item, .sort-box-item {
+    border: 2px dotted #4b5162;
+    margin: 10px;
+    padding: 10px;
+    font-size: 18px;
+    overflow: auto;
+}
+
+/* =================== HOME -> ARRANGEMENTS =================*/
+
+.main-item-container {
+    border: 1px solid #4b5162;
+    border-radius: 5px;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+.arrangement-image{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin: 0;
+}
+
+.custom-button {
+    overflow: hidden;
+    width: 95%;
+    margin: 2%;
+    background-color: #4b5162;
+    border: 1px solid #5294e2;
+    border-radius: 2px;
+    color: #5294e2;
+    font-size: 18px;
+}
+
+.custom-button:hover {
+    cursor: pointer;
+    background-color: #383c4a;
+}
+
+/* =================== HOME -> DETAILS =================*/
+.details-container {
+    border-radius: 5px;
+    font-size: 20px;
+    display: block;
+    overflow: auto;
+    width: 70%;
+    background-color: #404552;
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.details-text-info {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.details-image-info {
+    width: 50%;
+    float: right;
+}
+
+.details-image{
+    width: 100%;
+    height:80%;
+    border-radius: 8px;
+}
+
+.profile-table, .profile-table th, .profile-table td,
+.details-table, .details-table th, .details-table td {
+    border-collapse: collapse;
+    border: 1px solid #7c818c;
+    margin: auto;
+    text-align: center;
+}
+
+.details-table{
+    width: 90%;
+}
+
+/* ============================ PROPERTIES FOR OPEN LAYERS MAP ===========================*/
+.map {
+    height: 400px;
+    width: 100%;
+}
+
+/* =========== LOGIN / REGISTER PAGE ================*/
+
+.login-container, .register-container {
+    border: 1px solid #4b5162;
+    border-radius: 3px;
+    padding: 10px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* ===================== COMMON ==========================*/
+.error_message {
+    text-align: center;
+    font-size: 18px;
+    margin: 0;
+}
+
+.input-same-size{
+    width:100%;
+    box-sizing:border-box;
+}
+
+/* =================== PROFILE PAGE =========================*/
+.profile-container, .edit-unit-container {
+    font-size: 18px;
+    margin: auto;
+    padding-top: 100px;
+    width: fit-content;
+    text-align: center;
+}
+
+
+/* ============================== ADMIN -> INDEX HOME PAGE =======================================*/
+
+.admin-container-item, .manager-container-item {
+    background-color: #4b5162;
+    text-align: center;
+    border-radius: 15px;
+    margin: 1%;
+    color: #5294e2;
+    transition: 0.2s;
+}
+
+.admin-container-item:hover, .manager-container-item:hover {
+    background-color: #404552;
+}

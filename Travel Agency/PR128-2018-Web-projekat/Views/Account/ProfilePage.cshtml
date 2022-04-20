@@ -1,0 +1,92 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Profile";
+    User currentUser = Session["USER"] as User;
+}
+
+    <script>
+        function mouseoverPass(obj) {
+          var obj = document.getElementById('password');
+          obj.type = "text";
+        }
+        function mouseoutPass(obj) {
+            var obj = document.getElementById('password');
+          obj.type = "password";
+        }
+    </script>
+
+    <!-- PROFILE CONTAINER -->
+    <div class="profile-container">
+        <img src="~/Images/user.png" style="width:200px; height:200px;"/>
+        <h2>@currentUser.Username</h2>
+        <form action="~/Account/EditProfie" method="post">
+            <table class="profile-table">
+                <tr>
+                    <td>Password:</td>
+                    <td>
+                        <input class="input-same-size" id="password" type="password" name="password" value="@currentUser.Password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Name:</td>
+                    <td><input class="input-same-size" type="text" name="name" value="@currentUser.Name" /></td>
+                </tr>
+
+
+                <tr>
+                    <td>Lastname:</td>
+                    <td><input class="input-same-size" type="text" name="lastname" value="@currentUser.Lastname" /></td>
+                </tr>
+
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <select name="gender" class="input-same-size">
+                            @if (@currentUser.Gender.Equals("Male"))
+                            {
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                            }
+                            @if (currentUser.Gender.Equals("Female"))
+                            {
+                                <option value="Male">Male</option>
+                                <option value="Female" selected>Female</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email:</td>
+                    <td><input class="input-same-size" type="text" name="email" value="@currentUser.Email" /></td>
+                </tr>
+
+                <tr>
+                    <td>Date of birth:</td>
+                    <td><input type="date" name="dateOfBirth" value="@currentUser.DateOfBirth.ToString("yyyy-MM-dd")" class="input-same-size"/></td>
+                </tr>
+
+                <tr>
+                    <td>Role</td>
+                    <td>@currentUser.Role.ToString()</td>
+                </tr>
+
+                @if (ViewBag.usernameError != null)
+                {
+                    <tr>
+                        <td colspan="2">@ViewBag.usernameError</td>
+                    </tr>
+                }
+                @if (ViewBag.emailError != null)
+                {
+                    <tr>
+                        <td colspan="2">@ViewBag.emailError</td>
+                    </tr>
+                }
+
+                </table>
+            <input type="submit" value="Edit Profile" class="custom-button" />
+        </form>
+    </div>
+    

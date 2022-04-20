@@ -1,0 +1,16 @@
+1;milan;7;Neverovatno cudo prirode! Vredi posetiti! Nije nam se svidelo dorucak u hotelu u kom smo odseli!;4;True
+2;milan;3;Super leto za mlade! Bas smo se odmorili!;5;True
+3;milan;1;Ako zelite da se udaljite od grada i buke ovo je pravo mesto za vas!;5;True
+4;milan;2;Sve super i sve pohvale! Smestaj je neverovatan!;5;True
+5;jovana;5;Prelepe plaze i topla voda! ;5;True
+6;jovana;4;Sve je bilo super ali nam se nije svidela prevelika guzva na plazi :(;4;True
+7;jovana;6;Prelepooo! Prezadovoljni smo sa smestajom a i hrana je bila odlicna! Vredi svaku paru! :);5;True
+8;marko;5;Super je bilo! Prezadovoljni smo!;5;True
+9;marko;4;Hrana je bila katastrofalna u smestaju. Plaza i more su super!;3;True
+10;marko;6;Bilo nam je jako lepo i bas smo uzivalo. Mana je visoka cena.;4;True
+11;petar;3;Super smestaj, hrana i more! Pravo mesto za druzenje i letovanje sa drustvom!;5;True
+12;petar;1;Katastrofa, smestaj je bio ocajan.. Kupatilo prljavo a soba smrdi.;1;True
+13;petar;2;Super nam je bilo! Sneg i druzenje! ;5;True
+14;petar;8;Prelepi grad i divni i prijatni ljudi! Hrana je neverovatna a ljudi gostoprimljivi! Sve pohvale!;5;True
+15;danijela;7;Smestaj je imao losu hranu i neudobne krevete. Ostatak izleta je bio super!;3;True
+16;danijela;8;Prelep grad! Svako ko ima mogucnosti treba da poseti Istanbul! Svaka cast za organizatore!;5;True

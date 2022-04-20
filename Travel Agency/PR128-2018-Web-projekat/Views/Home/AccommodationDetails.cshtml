@@ -1,0 +1,215 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    User currentUser = Session["USER"] as User;
+    if (ViewBag.arrangement != null)
+    {
+        ViewBag.Title = ViewBag.arrangement.Accommodation.Name + " - Units" ;
+    }
+    else
+    {
+        ViewBag.Title = "Error";
+    }
+}
+@if (ViewBag.arrangement == null)
+{
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Wrong arrangement ID</h1>
+    </div>
+}
+else
+{
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">@ViewBag.arrangement.Accommodation.Name</h1>
+    </div>
+
+    <div>
+
+        <!-- SEARCH CONTAINER -->
+        <form action="~/Home/SearchAccommodationUnits" method="post">
+            <div class="col span-1-of-5 search-container">
+            <input type="hidden" name ="arrangementID" value="@ViewBag.arrangement.Id">
+                <h3>Search</h3>
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Number of guests</legend>
+                        <table style="width:100%;">
+                            <tr>
+                                <td>Min:</td>
+                                <td><input type="number" name="minGuests" style="width:100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>Max:</td>
+                                <td><input type="number" name="maxGuests" style="width:100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Pets allowed</legend>
+                        <select name="petsAllowed" style="width: 100%;">
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Price</legend>
+                        <table style="width:100%;">
+                            <tr>
+                                <td>Min:</td>
+                                <td><input type="number" name="minPrice" style="width:100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>Max:</td>
+                                <td><input type="number" name="maxPrice" style="width:100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <input type="submit" name="action" value="Search" class="custom-button" />
+                    <input type="submit" name="action" value="Clear Search" class="custom-button" />
+                </div>
+            </div>
+        </form>
+
+        <!-- UNITS CONTAINER -->
+        <div class="col span-3-of-5 main-container" style="padding-bottom: 15px;">
+            <h3>Accommodation Info</h3>
+            <table class="details-table">
+                <tr>
+                    <td>Accommodation type</td>
+                    @switch (ViewBag.arrangement.Accommodation.AccommodationType)
+                    {
+                        case AccommodationType.HOTEL:
+                            <td>Hotel</td>
+                            break;
+                        case AccommodationType.MOTEL:
+                            <td>Motel</td>
+                            break;
+                        case AccommodationType.VILLA:
+                            <td>Villa</td>
+                            break;
+                    }
+                </tr>
+                <tr>
+                    <td>Accommodation name</td>
+                    <td>@ViewBag.arrangement.Accommodation.Name</td>
+                </tr>
+                @if (ViewBag.arrangement.Accommodation.AccommodationType == AccommodationType.HOTEL)
+                {
+                    <tr>
+                        <td>Hotel Stars</td>
+                        <td>
+                                @ViewBag.arrangement.Accommodation.HotelStars
+                            @for (int i = 0; i < ViewBag.arrangement.Accommodation.HotelStars; i++)
+                            {
+                                <h7 style="margin:0; color: gold;">&#9733</h7>
+                            }
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>Pool</td>
+                    <td>@(ViewBag.arrangement.Accommodation.Pool == true ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <td>Spa center</td>
+                    <td>@(ViewBag.arrangement.Accommodation.SpaCenter == true ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <td>Adapted for disabled people</td>
+                    <td>@(ViewBag.arrangement.Accommodation.DisabledPeopleAdapted == true ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <td>Wifi</td>
+                    <td>@(ViewBag.arrangement.Accommodation.Wifi == true ? "Yes" : "No")</td>
+                </tr>
+            </table>
+
+            <h3>Accommodation Units</h3>
+            <table class="details-table">
+                <tr>
+                    <th>UnitID</th>
+                    <th>Number of guests allowed</th>
+                    <th>Pets allowed</th>
+                    <th>Price</th>
+                    <th>Occupied</th>
+                    @if (currentUser != null && currentUser.Role == Role.TOURIST && ViewBag.arrangement.StartDate > DateTime.Now)
+                    {
+                        <th>Reserve</th>
+                    }
+                </tr>
+                @foreach (var item in ViewBag.units)
+                {
+                    <tr>
+                        <td>@item.UnitID</td>
+                        <td>@item.NumberOfGuestsAllowed</td>
+                        <td>@(item.PetsAllowed ? "Yes" : "No")</td>
+                        <td>@item.Price RSD</td>
+                        <td>@(item.Occupied ? "Yes" : "No")</td>
+                        @if (currentUser != null && currentUser.Role == Role.TOURIST && ViewBag.arrangement.StartDate > DateTime.Now)
+                        {
+                            <td>
+                                @if (!item.Occupied)
+                                {
+                                    <form action="~/Reservation/Reserve" method="post">
+                                        <input type="hidden" name="arrangementID" value="@ViewBag.arrangement.Id"/>
+                                        <input type="hidden" name="unitID" value="@item.UnitID"/>
+                                        <input type="submit" value="Reserve" class="custom-button" style="margin:0; font-size:16px;"/>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <p style="margin:0;">Reserved</p>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <!-- SORT CONTAINER -->
+        <div class="col span-1-of-5 sort-container">
+            <h3>Sort</h3>
+            <form action="~/Home/SortAccommodationUnits" method="post">
+                <input type="hidden" name="arrangementID" value="@ViewBag.arrangement.Id"/>
+                @for (int i = 0; i < ViewBag.units.Count; i++)
+                {
+                    <input type="hidden" name="list" value="@ViewBag.units[i].UnitID" />
+                }
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort by</legend>
+                        <select name="sortBy" style="width: 100%;">
+                            <option value="NumberOfGuests">Number Of Guests</option>
+                            <option value="Price">Price</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort order</legend>
+                        <select name="order" style="width: 100%;">
+                            <option value="Ascending">Ascending</option>
+                            <option value="Descending">Descending</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <input type="submit" value="Sort" class="custom-button" />
+                </div>
+            </form>
+        </div>
+    </div>
+}

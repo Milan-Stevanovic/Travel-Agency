@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "All Users";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">All Users in the system:</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- SEARCH CONTAINER -->
+        <form action="~/Admin/SearchUsers" method="post">
+            <div class="col span-1-of-9 search-container">
+                <h3>Search</h3>
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Name</legend>
+                        <input type="text" name="name" style="width: 100%;" />
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Lastname</legend>
+                        <input type="text" name="lastname" style="width: 100%;" />
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Role</legend>
+                        <select name="role" style="width: 100%;">
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="MANAGER">MANAGER</option>
+                            <option value="TOURIST">TOURIST</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <input type="submit" name="action" value="Search" class="custom-button" />
+                    <input type="submit" name="action" value="Clear Search" class="custom-button" />
+                </div>
+            </div>
+        </form>
+
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="col span-7-of-9 main-container">
+            <h3>All Users</h3>
+            @{
+                foreach (var item in ViewBag.list)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-9">
+                            <p>
+                                Username<br />
+                                @item.Username
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Password<br />
+                                @item.Password
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Name<br />
+                                @item.Name
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Lastname<br />
+                                @item.Lastname
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Gender<br />
+                                @item.Gender
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Email<br />
+                                @item.Email
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Birth date<br />
+                                @item.DateOfBirth.ToString("dd/MM/yyyy")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Role<br />
+                                @item.Role.ToString()
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-9">
+                            <p>
+                                Blocked<br />
+                                @item.Blocked
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- SORT CONTAINER -->
+        <div class="col span-1-of-9 sort-container">
+            <h3>Sort</h3>
+            <form action="~/Admin/SortUsers" method="post">
+                @for (int i = 0; i < ViewBag.list.Count; i++)
+                {
+                    <input type="hidden" name="list" value="@ViewBag.list[i].Username" />
+                }
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort by</legend>
+                        <select name="sortBy" style="width: 100%;">
+                            <option value="Name">Name</option>
+                            <option value="Lastname">Lastname</option>
+                            <option value="Role">Role</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort order</legend>
+                        <select name="order" style="width: 100%;">
+                            <option value="Ascending">Ascending</option>
+                            <option value="Descending">Descending</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <input type="submit" value="Sort" class="custom-button" />
+                </div>
+            </form>
+        </div>
+    </div>

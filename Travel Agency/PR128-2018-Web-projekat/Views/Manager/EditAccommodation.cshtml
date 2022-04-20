@@ -1,0 +1,138 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Edit Accommodation";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Edit Accommodation</h1>
+    </div>
+
+    <div class="profile-container">
+        <form action="~/Manager/SaveAccommodationEdit" method="post" >
+            <input type="hidden" name="id" value="@ViewBag.accommodation.Id"/>
+            <table class="profile-table">
+                <tr>
+                    <td>Type:</td>
+                    <td>
+                        <script>
+                            function enableStars(value) {
+                                if (value === "HOTEL")
+                                    document.getElementById("hotelStars").disabled = false;
+                                else {
+                                    document.getElementById("hotelStars").value = 0;
+                                    document.getElementById("hotelStars").disabled = true;
+                                }
+                            }
+                        </script>
+                        <select name="accommodationType" class="input-same-size" onChange="enableStars(this.value)">
+                            @foreach (var type in (AccommodationType[])Enum.GetValues(typeof(AccommodationType)))
+                            {
+                                if (type == ViewBag.accommodation.AccommodationType)
+                                {
+                                    <option value="@type" selected>@type</option>
+                                }
+                                else
+                                {
+                                    <option value="@type">@type</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" value="@ViewBag.accommodation.Name" class="input-same-size" required/></td>
+                </tr>
+
+                <tr>
+                    <td>Hotel Stars:</td>
+                    <td>
+                        @if(ViewBag.accommodation.AccommodationType == AccommodationType.HOTEL)
+                        {
+                            <input type="number" name="hotelStars" id="hotelStars" value="@ViewBag.accommodation.HotelStars" min="0" max="5" class="input-same-size" required/>
+                        }
+                        else
+                        {
+                            <input type="number" name="hotelStars" id="hotelStars" value="@ViewBag.accommodation.HotelStars" min="0" max="5" class="input-same-size" disabled required/>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Pool:</td>
+                    <td>
+                        <select name="pool" class="input-same-size">
+                            @if (ViewBag.accommodation.Pool)
+                            {
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+                            }
+                            else
+                            {
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Spa Center:</td>
+                    <td>
+                        <select name="spaCenter" class="input-same-size">
+                            @if (ViewBag.accommodation.SpaCenter)
+                            {
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+                            }
+                            else
+                            {
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Disabled People Adapted:</td>
+                    <td>
+                        <select name="disabledPeopleAdapted" class="input-same-size">
+                            @if (ViewBag.accommodation.DisabledPeopleAdapted)
+                            {
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+                            }
+                            else
+                            {
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Wifi:</td>
+                    <td>
+                        <select name="wifi" class="input-same-size">
+                            @if (ViewBag.accommodation.Wifi)
+                            {
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+                            }
+                            else
+                            {
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+            <input type="submit" value="Edit Accommodation" class="custom-button" style="width:97%;"/>
+        </form>
+    </div>

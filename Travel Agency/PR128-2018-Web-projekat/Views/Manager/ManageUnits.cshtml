@@ -1,0 +1,184 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Manage Units";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">@ViewBag.accommodation.Name Accommodation Units</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div>
+        <!-- SEARCH CONTAINER -->
+        <form action="~/Manager/SearchAccommodationUnits" method="post">
+            <div class="col span-1-of-5 search-container">
+                <input type="hidden" name="accommodationId" value="@ViewBag.accommodation.Id">
+                <h3>Search</h3>
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Number of guests</legend>
+                        <table style="width:100%;">
+                            <tr>
+                                <td>Min:</td>
+                                <td><input type="number" name="minGuests" style="width:100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>Max:</td>
+                                <td><input type="number" name="maxGuests" style="width:100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Pets allowed</legend>
+                        <select name="petsAllowed" style="width: 100%;">
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <fieldset>
+                        <legend>Price</legend>
+                        <table style="width:100%;">
+                            <tr>
+                                <td>Min:</td>
+                                <td><input type="number" name="minPrice" style="width:100%;" /></td>
+                            </tr>
+                            <tr>
+                                <td>Max:</td>
+                                <td><input type="number" name="maxPrice" style="width:100%;" /></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+
+                <div class="search-box-item">
+                    <input type="submit" name="action" value="Search" class="custom-button" />
+                    <input type="submit" name="action" value="Clear Search" class="custom-button" />
+                </div>
+            </div>
+        </form>
+
+        <!-- MAIN ARRANGEMENTS CONTAINER -->
+        <div class="col span-3-of-5 main-container">
+            @{
+                foreach (var item in ViewBag.units)
+                {
+                    <div class="row main-item-container">
+                        <div class="col span-1-of-6">
+                            <p>
+                                Number of guests allowed<br />
+                                @item.NumberOfGuestsAllowed
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-6">
+                            <p>
+                                Pets allowed<br />
+                                @(item.PetsAllowed ? "Yes" : "No")
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-6">
+                            <p>
+                                Price<br />
+                                @item.Price RSD
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-6">
+                            <p>
+                                Occupied<br />
+                                @item.Occupied
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-6">
+                            <p>
+                                Deleted<br />
+                                @item.Deleted
+                            </p>
+                        </div>
+
+                        <div class="col span-1-of-6">
+                            @{
+                                bool exists = false;
+                                foreach (Reservation reservation in Data.reservations.Values)
+                                {
+                                    if (reservation.Arrangement.Accommodation.Id == ViewBag.accommodation.Id && reservation.AccommodationUnit.UnitID == item.UnitID)
+                                    {
+                                        exists = true;
+                                        break;
+                                    }
+                                }
+                                if (!exists)
+                                {
+                                    <form action="~/Manager/DeleteUnit" method="post">
+                                        <input type="hidden" name="accommodationId" value="@ViewBag.accommodation.Id" />
+                                        <button type="submit" name="unitID" value="@item.UnitID" class="custom-button">DELETE</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <p>
+                                        Reservation exists! Cannot delete!
+                                    </p>
+                                }
+                            }
+                            <form action="~/Manager/EditUnit" method="post">
+                                <input type="hidden" name="accommodationId" value="@ViewBag.accommodation.Id" />
+                                <button type="submit" name="unitID" value="@item.UnitID" class="custom-button">EDIT</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="row main-item-container">
+                <form action="~/Manager/AddUnit" method="post">
+                    <input type="hidden" name="accommodationId" value="@ViewBag.accommodation.Id" />
+                    <button type="submit" class="custom-button">Add new unit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SORT CONTAINER -->
+        <div class="col span-1-of-5 sort-container">
+            <h3>Sort</h3>
+            <form action="~/Manager/SortAccommodationUnits" method="post">
+                <input type="hidden" name="accommodationId" value="@ViewBag.accommodation.Id" />
+                @for (int i = 0; i < ViewBag.units.Count; i++)
+                {
+                    <input type="hidden" name="list" value="@ViewBag.units[i].UnitID" />
+                }
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort by</legend>
+                        <select name="sortBy" style="width: 100%;">
+                            <option value="NumberOfGuests">Number Of Guests</option>
+                            <option value="Price">Price</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <fieldset>
+                        <legend>Sort order</legend>
+                        <select name="order" style="width: 100%;">
+                            <option value="Ascending">Ascending</option>
+                            <option value="Descending">Descending</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="sort-box-item">
+                    <input type="submit" value="Sort" class="custom-button" />
+                </div>
+            </form>
+        </div>
+    </div>

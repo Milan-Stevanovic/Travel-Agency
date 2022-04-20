@@ -1,0 +1,48 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
+    User currentUser = Session["USER"] as User;
+}
+@if (currentUser != null)
+{
+    <div class="section">
+        <h1 id="header">You are already logged in!</h1>
+    </div>
+}
+else
+{
+    <div class="section">
+        <h1 id="header">Login</h1>
+    </div>
+
+    <div class="login-container">
+        <form action="~/Account/Login" method="post">
+            <table>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                @if (ViewBag.error != null)
+                {
+                    <tr>
+                        <td colspan="2" class="error_message">@ViewBag.error</td>
+                    </tr>
+                }
+                @if (ViewBag.emptyError != null)
+                {
+                    <tr>
+                        <td colspan="2" class="error_message">@ViewBag.emptyError</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2"><input style="width:100%;" type="submit" value="Log In" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+}

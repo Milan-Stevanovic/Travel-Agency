@@ -1,0 +1,67 @@
+﻿@using PR128_2018_Web_projekat.Models;
+@{
+    ViewBag.Title = "Edit Unit";
+}
+
+    <!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Edit Unit</h1>
+    </div>
+
+    <div class="profile-container">
+        <form action="~/Manager/SaveUnitEdit" method="post" >
+            <table class="profile-table">
+                <input type="hidden" name="accommodationId" value="@ViewBag.unit.Id" />
+                <input type="hidden" name="unitID" value="@ViewBag.unit.UnitID" />
+                <tr>
+                    <td>Number of guests allowed:</td>
+                    <td>
+                        @{
+                            bool exists = false;
+                            foreach (var reservation in Data.reservations.Values)
+                            {
+                                if (reservation.Arrangement.Accommodation.Id == ViewBag.unit.Id && reservation.AccommodationUnit.UnitID == ViewBag.unit.UnitID && reservation.Arrangement.StartDate < DateTime.Now)
+                                {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+
+                            if (!exists)
+                            {
+                                <input type="number" name="numberOfGuests" min="1" value="@ViewBag.unit.NumberOfGuestsAllowed" class="input-same-size" />
+                            }
+                            else
+                            {
+                                <input type="number" name="numberOfGuests" min="1" value="@ViewBag.unit.NumberOfGuestsAllowed" disabled class="input-same-size" />
+                            }
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Pets Allowed:</td>
+                    <td>
+                        <select name="petsAllowed" class="input-same-size">
+                            @if (ViewBag.unit.PetsAllowed)
+                            {
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+                            }
+                            else
+                            {
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Price:</td>
+                    <td><input type="number" name="price" min="1" value="@ViewBag.unit.Price" class="input-same-size" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="Edit Unit" class="custom-button" style="width:97%;"/>
+        </form>
+    </div>

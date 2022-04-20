@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Suspicious Users";
+}
+
+<!-- HEADER -->
+    <div class="section">
+        <h1 id="header">Suspicious Users:</h1>
+    </div>
+
+    <div class="span-12-of-12" style="text-align:center;">
+        @{
+            foreach (var item in ViewBag.list)
+            {
+                <div class="row main-item-container">
+                    <div class="col span-1-of-11">
+                        <p>
+                            Username<br />
+                            @item.Username
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Password<br />
+                            @item.Password
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Name<br />
+                            @item.Name
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Lastname<br />
+                            @item.Lastname
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Gender<br />
+                            @item.Gender
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Email<br />
+                            @item.Email
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Birth date<br />
+                            @item.DateOfBirth.ToString("dd/MM/yyyy")
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Role<br />
+                            @item.Role.ToString()
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Blocked<br />
+                            @item.Blocked
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <p>
+                            Canceled Reservations<br />
+                            @item.CanceledReservations
+                        </p>
+                    </div>
+
+                    <div class="col span-1-of-11">
+                        <form action="~/Admin/BlockUser" method="post">
+                            <input type="hidden" name="username" value="@item.Username"/>
+                            <button type="submit" name="action" value="BLOCK" class="custom-button">BLOCK</button>
+                            <button type="submit" name="action" value="UNBLOCK" class="custom-button">UNBLOCK</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+    </div>
